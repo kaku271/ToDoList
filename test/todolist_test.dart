@@ -18,15 +18,15 @@ void main() {
   });
 
   test('Add item', () {
-    // Prepare
+    // Prepare test
     var item = Item('matar a pepe');
     var name = 'Pepe';
     var toDoList = ToDoList(name);
 
-    // Execute
+    // Execute!
     addItem(toDoList, item);
 
-    // Check
+    // Check ✓
     expect(toDoList.items.length, 1);
     expect(toDoList.items.first.name, item.name);
   });
