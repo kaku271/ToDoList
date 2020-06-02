@@ -1,3 +1,4 @@
+import 'package:todolist/item.dart';
 import 'package:todolist/todolist.dart';
 import 'package:todolist/usecases.dart';
 import 'package:test/test.dart';
@@ -24,10 +25,10 @@ void main() {
     var toDoList = ToDoList(name);
 
     // Execute!
-    addItem(toDoList, item);
+    addItemToList(toDoList, item);
 
     // Check ✓
-    expect(toDoList.items.length, 1);
-    expect(toDoList.items.first.name, item.name);
+    expect(toDoList.length, 1);
+    expect(toDoList.getAtIndex(0).content, item.content);
   });
 }

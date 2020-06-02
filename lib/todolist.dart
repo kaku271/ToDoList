@@ -1,7 +1,20 @@
+import 'item.dart';
+
 class ToDoList {
-  final String name; //atributo
+  final String name;
+  final List<Item> _items = [];
 
-  ToDoList(this.name); //constructor
+  int get length {
+    return _items.length;
+  }
 
-	
+  ToDoList(this.name);
+
+  Item getAtIndex(int index) {
+    return _items[index];
+  }
+
+  void addItem(Item item) {
+    _items.add(item);
+  }
 }
