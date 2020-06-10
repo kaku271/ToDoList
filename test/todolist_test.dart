@@ -1,6 +1,6 @@
-import 'package:todolist/item.dart';
-import 'package:todolist/todolist.dart';
-import 'package:todolist/usecases.dart';
+import 'package:todolist/domain/item.dart';
+import 'package:todolist/domain/to_do_list.dart';
+import 'package:todolist/domain/usecases.dart';
 import 'package:test/test.dart';
 
 void main() {
