@@ -1,16 +1,15 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:convert';
-
 import 'package:todolist/presentation/presentation_service.dart';
 
-void main() {
+// dart bin/main.dart list -c -n 'Lista del Super'
+
+void main(List<String> args) {
   var presentationService = PresentationService();
-  presentationService.printWellcome();
-  var commandsStream = readCommand();
-	commandsStream.listen(presentationService.processCommand);
+
+  presentationService.processCommand(args.first);
 }
 
-Stream<String> readCommand() {
-  return stdin.transform(utf8.decoder).transform(const LineSplitter());
-}
+
+
+
+
+
