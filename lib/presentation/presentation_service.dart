@@ -3,10 +3,10 @@ import 'package:todolist/presentation/command_creator.dart';
 import 'package:todolist/presentation/command_handler.dart';
 
 class PresentationService {
-  void processCommand(String commandName) {
+  void processCommand(List<String> args) {
     var commandHandler = CommandHandler();
     var commmandCreator = CommandCreator();
-    var command = commmandCreator.create(commandName);
+    var command = commmandCreator.create(args);
     commandHandler.execute(command);
   }
 

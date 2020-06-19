@@ -1,6 +1,10 @@
 import 'package:todolist/presentation/commands/command.dart';
 
-class ShowAllListCommand implements Command {
+class DeleteItemCommand implements Command {
+  final String _name;
+  final int _listId;
+  DeleteItemCommand(this._name, this._listId);
+
   @override
   void execute() {
     // TODO: implement execute
@@ -8,9 +12,6 @@ class ShowAllListCommand implements Command {
 
   @override
   void printHelp() {
-    print(''' 
-		-a, --all
-			Muestra todas las listas
-		''');
+    // TODO: implement printHelp
   }
 }

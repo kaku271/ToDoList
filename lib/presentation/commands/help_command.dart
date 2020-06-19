@@ -5,7 +5,8 @@ class HelpCommand implements Command {
   @override
   void printHelp() {
     print('"help"	Shows all available commands.');
-    var newListCommand = NewListCommand(); //instanciar una clase
+		// TODO: Avoid instanciating other commands to do this.
+    var newListCommand = NewListCommand(null); //instanciar una clase
     newListCommand.printHelp(); //pedir que haga algo
   }
 

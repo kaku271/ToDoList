@@ -5,11 +5,5 @@ import 'package:todolist/presentation/presentation_service.dart';
 void main(List<String> args) {
   var presentationService = PresentationService();
 
-  presentationService.processCommand(args.first);
+  presentationService.processCommand(args);
 }
-
-
-
-
-
-

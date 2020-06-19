@@ -1,7 +1,10 @@
 import 'package:todolist/presentation/commands/command.dart';
+import 'package:todolist/presentation/commands/delete_item_command.dart';
 import 'package:todolist/presentation/commands/help_command.dart';
+import 'package:todolist/presentation/commands/new_item_command.dart';
 import 'package:todolist/presentation/commands/new_list_command.dart';
-import 'package:todolist/presentation/commands/show_all_list_command.dart';
+import 'package:todolist/presentation/commands/show_all_items_command.dart';
+import 'package:todolist/presentation/commands/show_all_lists_command.dart';
 import 'package:todolist/presentation/commands/unknown_command.dart';
 
 // list -c -n 'Lista del Super'
@@ -11,9 +14,14 @@ import 'package:todolist/presentation/commands/unknown_command.dart';
 // [list, -n, 'Lista del Super', -c]
 
 class Flag {
-  final String shortFlag;
-  final String longFlag;
-  Flag(this.shortFlag, this.longFlag);
+  final String _short;
+  final String _long;
+
+  Flag(this._short, this._long);
+
+  bool compare(String flag) {
+    return flag == _short || flag == _long;
+  }
 }
 
 class CommandCreator {
@@ -21,6 +29,7 @@ class CommandCreator {
   final _allFlag = Flag('-a', '--all');
   final _listFlag = Flag('-l', '--list');
   final _deleteFlag = Flag('-d', '--delete');
+  final _nameFlag = Flag('-n', '--name');
 
   Command create(List<String> args) {
     if (args.first == 'list') {
@@ -30,20 +39,32 @@ class CommandCreator {
         return NewListCommand(name);
       }
       if (_hasFlag(args, _allFlag)) {
-        return ShowAllListCommand();
+        return ShowAllListsCommand();
       }
-    } else if (args.first == 'item') {
+    }
+    if (args.first == 'item') {
       if (_hasFlag(args, _createFlag)) {
         var listId = _getListId(args);
         var name = _getName(args);
         return NewItemCommand(name, listId);
       }
+      if (_hasFlag(args, _allFlag)) {
+        var listId = _getListId(args);
+        return ShowAllItemsCommand(listId);
+      }
+      if (_hasFlag(args, _deleteFlag)) {
+        var listId = _getListId(args);
+        var name = _getName(args);
+
+        return DeleteItemCommand(name, listId);
+      }
     }
+    return UnknownCommand(args.first);
   }
 
   bool _hasFlag(List<String> args, Flag flag) {
     for (var arg in args) {
-      if (arg == flag.shortFlag || arg == flag.longFlag) return true;
+      if (flag.compare(arg)) return true;
     }
 
     return false;
@@ -51,7 +72,9 @@ class CommandCreator {
 
   String _getName(List<String> args) {
     for (var i = 0; i < args.length; i++) {
-      if (args[i] == '-n' || args[i] == '--name') {
+      if (_nameFlag.compare(args[i])) {
+        final isLastIndex = i >= args.length - 1;
+        if (isLastIndex) throw 'No name found';
         return args[i + 1];
       }
     }
@@ -60,14 +83,14 @@ class CommandCreator {
 
   int _getListId(List<String> args) {
     for (var i = 0; i < args.length; i++) {
-      if (args[i] == '-l' || args[i] == '--list') {
-        return int.parse(args[i + 1]);
-      }
+      if (_listFlag.compare(args[i])) return int.parse(args[i + 1]);
     }
 
     throw 'no list id found';
   }
 }
+
+// item --all --list 1
 
 // list
 //			-c, --create
