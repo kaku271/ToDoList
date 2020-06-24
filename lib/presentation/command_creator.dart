@@ -32,6 +32,8 @@ class CommandCreator {
   final _nameFlag = Flag('-n', '--name');
 
   Command create(List<String> args) {
+		// TODO: handler user errors
+		// e.g: empty argument list
     if (args.first == 'list') {
       if (_hasFlag(args, _createFlag)) {
         var name = _getName(args);
@@ -59,6 +61,7 @@ class CommandCreator {
         return DeleteItemCommand(name, listId);
       }
     }
+    if (args.first == 'help') return HelpCommand();
     return UnknownCommand(args.first);
   }
 

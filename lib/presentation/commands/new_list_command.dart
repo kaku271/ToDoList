@@ -1,9 +1,9 @@
 import 'package:todolist/presentation/commands/command.dart';
 
 class NewListCommand implements Command {
-  final String _name;
+  final String name;
 
-  NewListCommand(this._name);
+  NewListCommand(this.name);
 
   @override
   void printHelp() {
