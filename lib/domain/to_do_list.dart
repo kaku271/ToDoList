@@ -17,4 +17,9 @@ class ToDoList {
   void addItem(Item item) {
     _items.add(item);
   }
+
+  @override
+  String toString() {
+    return 'list name: $name';
+  }
 }

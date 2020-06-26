@@ -1,3 +1,4 @@
+import 'package:todolist/domain/usecases.dart';
 import 'package:todolist/presentation/commands/command.dart';
 
 class NewListCommand implements Command {
@@ -12,8 +13,7 @@ class NewListCommand implements Command {
 
   @override
   void execute() {
-    print('Enter the list name:');
-    // TODO: implement execute
-    throw 'unimplemented!!';
+    var toDoList = createToDoList(name);
+    print('new list name: ${toDoList.name}');
   }
 }
